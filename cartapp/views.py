@@ -53,6 +53,7 @@ def cart_change_amount(request):
 def cart(request):
     '负责渲染购物车页面'
     dd_price = 0
+    dd_amount = 0
     cart = request.session.get('cart')
     login_user = request.session.get('login_user')
     login_state = request.session.get('login_state')
@@ -60,7 +61,8 @@ def cart(request):
         for info in cart.lst:
             if info.state == True:
                 dd_price += info.amount * info.dangdang_price
-    return render(request, 'cartapp/car.html',{'cart':cart,'login_user':login_user,'login_state':login_state,'dd_price':dd_price})
+                dd_amount  += info.amount
+    return render(request, 'cartapp/car.html',{'cart':cart,'login_user':login_user,'login_state':login_state,'dd_price':dd_price,'dd_amount':dd_amount})
 
 
 
